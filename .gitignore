@@ -1,0 +1,10 @@
+data/
+*.h5
+__pycache__/
+*.pyc
+.DS_Store
+.ipynb_checkpoints/
+*.egg-info/
+dist/
+build/
+.env
