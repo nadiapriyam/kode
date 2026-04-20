@@ -9,9 +9,12 @@ def load_kspace(filepath: str, slice_idx: int = 0) -> np.ndarray:
     Returns a complex numpy array of shape (coils, height, width).
     """
     with h5py.File(filepath, 'r') as f:
-        kspace = f['kspace'][slice_idx]  # shape: (coils, height, width, 2) or complex
+        kspace = f['kspace'][slice_idx]  # shape: (coils, height, width) or (height, width)
         if kspace.dtype in [np.float32, np.float64]:
             kspace = kspace[..., 0] + 1j * kspace[..., 1]
+    # Single-coil data has no coil dimension — add it so shape is always (coils, height, width)
+    if kspace.ndim == 2:
+        kspace = kspace[np.newaxis, :, :]
     return kspace
 
 

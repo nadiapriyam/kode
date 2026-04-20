@@ -8,6 +8,26 @@ Built on the [fastMRI dataset](https://fastmri.med.nyu.edu/) from Meta AI / NYU 
 
 ---
 
+## Output Examples
+
+**Progressive Reveal — watching a knee MRI assemble itself from frequency data**
+
+![Progressive Reveal](results/progressive_reveal.gif)
+
+**Selective Frequency Reconstruction — isolating tissue layers without segmentation**
+
+![Selective Reconstruct](results/selective_reconstruct.png)
+
+**K-Space Fingerprint — radial power profile and per-slice metrics**
+
+![Fingerprint Metrics](results/fingerprint_metrics.png)
+
+**Pseudo-4D Motion Phases — motion states recovered from a static scan**
+
+![Pseudo-4D Phases](results/pseudo4d_phases.png)
+
+---
+
 ## Features
 
 | Module | What it does |
