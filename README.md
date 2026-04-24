@@ -37,6 +37,8 @@ FLAIR's fluid suppression is visible as a measurably lower power curve across mi
 
 ![Brain Fingerprint Atlas](results/brain_fingerprint_atlas.png)
 
+> FLAIR (red) sits measurably lower than every other sequence across the mid-to-high frequency range. FLAIR uses an inversion pulse to null CSF signal — that suppression removes energy from the entire acquisition and shows up as a lower power curve. No image was constructed to see this. The physics left a fingerprint in the raw frequency data. The shaded bands confirm the separation exceeds patient-to-patient variance — it is real and consistent.
+
 ---
 
 ### Finding 2 — The Tumor Signature: T1PRE vs T1POST
@@ -49,6 +51,8 @@ The right panel shows the difference curve (T1POST − T1PRE). Green regions are
 
 ![T1 Contrast Comparison](results/t1_contrast_comparison.png)
 
+> The left panel overlays T1PRE and T1POST fingerprint curves — same sequence, same anatomy, different only in gadolinium contrast. The right panel shows the difference (T1POST − T1PRE). Green regions are frequency bands where post-contrast signal exceeds pre-contrast — the k-space signature of gadolinium accumulating in tumor tissue where the blood-brain barrier is disrupted. Tumor tissue changes the raw frequency distribution of k-space, measurably, before any image is constructed.
+
 ---
 
 ### Finding 3 — Tumor Boundaries Live in High-Frequency K-Space
@@ -59,6 +63,8 @@ This chart measures exactly that — the fraction of total k-space energy in the
 
 ![High Frequency by Sequence](results/high_freq_by_sequence.png)
 
+> Each bar is the average fraction of total k-space energy in the outer 50% of frequency space — where boundaries and fine structure are encoded. If tumor margins are more precisely defined in k-space than image space, T1POST should show different high-frequency energy than T1PRE. The error bars show patient variance within each group. A consistent difference between T1PRE and T1POST — even small — means boundary information is detectable in raw k-space at the population level.
+
 ---
 
 ### Finding 4 — Outlier Detection Without an Image
@@ -66,6 +72,8 @@ This chart measures exactly that — the fraction of total k-space energy in the
 Each dot is one patient. Scans that deviate more than 2 standard deviations from their sequence-type cluster are flagged automatically — candidates for radiologist review, identified from raw k-space before any image is constructed.
 
 ![Brain Fingerprint Scatter](results/brain_fingerprint_scatter.png)
+
+> Each dot is one patient. Most cluster tightly between 0.95–1.0 on the x-axis — expected for brain scans dominated by low-frequency content. Outliers on the far left have signal spread more broadly across frequencies than their peers. These patients were flagged with no image, no AI model, and no training data — just two scalar numbers extracted from raw k-space. The next step: load those specific scans, reconstruct the image, and ask a radiologist whether the k-space anomaly corresponds to a real finding.
 
 ---
 
