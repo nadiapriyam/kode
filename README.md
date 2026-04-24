@@ -8,9 +8,51 @@ Built on the [fastMRI dataset](https://fastmri.med.nyu.edu/) from Meta AI / NYU 
 
 ---
 
-## Output Examples
+## Brain K-Space Fingerprint Atlas — 186 Scans, 5 Sequence Types
 
-**Progressive Reveal — watching a knee MRI assemble itself from frequency data**
+> Can k-space tell the difference between scan types — without ever reconstructing an image?
+
+Computed k-space fingerprints (radial power profile, energy ratio, asymmetry score) across 186 real multicoil brain MRI scans spanning 5 clinical sequences: FLAIR, T1, T1POST, T1PRE, T2. Each dot below is one patient's brain.
+
+**Mean fingerprint curve per sequence — distinct signatures emerge from raw frequency data alone**
+
+![Brain Fingerprint Atlas](results/brain_fingerprint_atlas.png)
+
+**Scatter plot — 186 patients mapped by energy ratio vs asymmetry score**
+
+![Brain Fingerprint Scatter](results/brain_fingerprint_scatter.png)
+
+Each sequence type clusters separately in k-space — without image reconstruction, without AI, without labels. This is the foundation of a **k-space diagnostic atlas**: a screening system that works upstream of the image, on the raw signal the scanner actually measures.
+
+---
+
+## The Gap This Addresses
+
+Current diagnostic pipelines — both radiologists and AI models — work on reconstructed images. But reconstruction is lossy: phase information is discarded, coil sensitivity data is collapsed, and frequency-domain structure disappears into pixel values.
+
+```
+MRI Scanner
+    → K-Space (raw frequency data)     ← Kode works here
+        → IFFT → Reconstructed Image   ← radiologists and AI work here
+```
+
+Kode works upstream. The hypothesis: **some pathologies are more detectable in k-space than in the reconstructed image** — faster, with no training data, before any reconstruction choices are made.
+
+---
+
+## All Notebooks
+
+| Notebook | What it shows |
+|---|---|
+| `05_brain_fingerprint_atlas` | K-space fingerprints across 186 brain scans — sequence clustering and outlier detection |
+| `01_selective_reconstruct` | Tissue separation by frequency band — no segmentation algorithm |
+| `02_fingerprint` | Radial power profile and asymmetry metrics on knee k-space |
+| `03_progressive_reveal` | Knee MRI assembling from DC component to full resolution |
+| `04_pseudo4d` | Motion phase recovery from k-space time structure |
+
+---
+
+**Progressive Reveal — knee MRI building from frequency data**
 
 ![Progressive Reveal](results/progressive_reveal.gif)
 
@@ -18,44 +60,9 @@ Built on the [fastMRI dataset](https://fastmri.med.nyu.edu/) from Meta AI / NYU 
 
 ![Selective Reconstruct](results/selective_reconstruct.png)
 
-**K-Space Fingerprint — radial power profile and per-slice metrics**
-
-![Fingerprint Metrics](results/fingerprint_metrics.png)
-
 **Pseudo-4D Motion Phases — motion states recovered from a static scan**
 
 ![Pseudo-4D Phases](results/pseudo4d_phases.png)
-
----
-
-## Features
-
-| Module | What it does |
-|---|---|
-| `selective_reconstruct` | Filter specific frequency bands before IFFT — separate tissue types without segmentation |
-| `fingerprint` | Analyze k-space shape as a diagnostic signal — no reconstruction required |
-| `progressive_reveal` | Reconstruct from low to high frequency in steps — visualize how detail builds |
-| `pseudo4d` | Recover motion surrogates from k-space time structure in standard 3D acquisitions |
-
----
-
-## Why K-Space
-
-Standard MRI pipelines discard frequency-domain information the moment reconstruction runs. Kode works upstream of that step — treating k-space as a source of signal intelligence rather than just a reconstruction input.
-
-```
-MRI Scanner
-    → K-Space (raw frequency data)          ← Kode works here
-        → IFFT → Reconstructed Image        ← everything else works here
-```
-
----
-
-## Dataset
-
-Kode uses the [fastMRI dataset](https://fastmri.med.nyu.edu/) — a large-scale open MRI dataset released by Meta AI Research and NYU Langone Health. Raw k-space files are provided in HDF5 format (`.h5`).
-
-To get the dataset: request access at [fastmri.med.nyu.edu](https://fastmri.med.nyu.edu/). Brain and knee k-space data are available.
 
 ---
 
@@ -67,6 +74,8 @@ cd kode
 pip install -r requirements.txt
 ```
 
+Data: request access at [fastmri.med.nyu.edu](https://fastmri.med.nyu.edu/). Place `.h5` files in `data/`.
+
 ---
 
 ## Project Structure
@@ -74,20 +83,19 @@ pip install -r requirements.txt
 ```
 kode/
 ├── kode/
-│   ├── __init__.py
-│   ├── io.py                  # Load .h5 k-space files
+│   ├── io.py
 │   ├── selective_reconstruct.py
 │   ├── fingerprint.py
 │   ├── progressive_reveal.py
 │   └── pseudo4d.py
 ├── notebooks/
+│   ├── 05_brain_fingerprint_atlas.ipynb
 │   ├── 01_selective_reconstruct.ipynb
 │   ├── 02_fingerprint.ipynb
 │   ├── 03_progressive_reveal.ipynb
 │   └── 04_pseudo4d.ipynb
-├── data/                      # Place fastMRI .h5 files here (gitignored)
-├── requirements.txt
-└── README.md
+├── data/
+└── results/
 ```
 
 ---
