@@ -1,6 +1,6 @@
 # Kode — K-Space Decode
 
-> **The physics of spatial frequency encoding does the work — not an algorithm guessing from grayscale values.**
+> The physics of spatial frequency encoding does the work — not an algorithm guessing from grayscale values.
 
 ---
 
