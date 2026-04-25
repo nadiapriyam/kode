@@ -93,6 +93,7 @@ The same principle applies to surgical planning, treatment response monitoring, 
 |---|---|
 | [`05_brain_fingerprint_atlas`](notebooks/05_brain_fingerprint_atlas.ipynb) | 186-scan atlas, gadolinium tumor signature, high-freq boundary analysis, outlier detection |
 | [`06_kspace_to_3d_cornerstone`](notebooks/06_kspace_to_3d_cornerstone.ipynb) | Full 3D volume from k-space → NIfTI export → Cornerstone3D browser rendering |
+| [`07_synthetic_validation`](notebooks/07_synthetic_validation.ipynb) | Synthetic lesion injection with known ground truth → detection threshold analysis, no radiologist required |
 | [`01_selective_reconstruct`](notebooks/01_selective_reconstruct.ipynb) | Tissue separation by frequency band — no segmentation algorithm |
 | [`02_fingerprint`](notebooks/02_fingerprint.ipynb) | Radial power profile and asymmetry metrics |
 | [`03_progressive_reveal`](notebooks/03_progressive_reveal.ipynb) | MRI assembling from DC component to full resolution |
